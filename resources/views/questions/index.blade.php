@@ -27,12 +27,16 @@
               <div class="view">
                 {{ $question->views . " " . Str::plural('view', $question->views) }}
               </div>
-              <div class=""></div>
             </div>
             <div class="media-body">
-              <a href="{{ $question->url }}">
-                <h1>{{ $question->title }}</h1>
-              </a>
+              <div class="d-flex align-items-center">
+                <a href="{{ $question->url }}">
+                  <h1>{{ $question->title }}</h1>
+                </a>
+                <div class="ml-auto">
+                  <a href="{{ route('questions.edit', $question->id) }}" class="btn btn-sm btn-outline-info">Edit</a>
+                </div>
+              </div>
               <p class="lead">
                 Asked By
                 <a href="{{ $question->user->url }}">{{ $question->user->name }}</a>
