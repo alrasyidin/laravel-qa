@@ -6,7 +6,10 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          All Questions
+          <div class="d-flex align-items-center">
+            <h3 class="m-0">All Questions</h3>
+            <a href="{{ route('questions.create') }}" class="btn btn-primary ml-auto">Add Question</a>
+          </div>
         </div>
 
         <div class="card-body">
