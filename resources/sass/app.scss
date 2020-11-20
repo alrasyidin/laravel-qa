@@ -7,6 +7,11 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+.btn-cyan{
+  background-color: $cyan;
+  color: white;
+}
+
 .counters{
   margin-right: 1.25em;
   font-size: 10px;

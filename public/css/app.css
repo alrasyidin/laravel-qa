@@ -10903,6 +10903,11 @@ a.text-dark:focus {
   }
 }
 
+.btn-cyan {
+  background-color: #6cb2eb;
+  color: white;
+}
+
 .counters {
   margin-right: 1.25em;
   font-size: 10px;
