@@ -6,6 +6,7 @@ use App\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\AskQuestionRequest;
+use Illuminate\Contracts\Session\Session;
 
 class QuestionController extends Controller
 {
@@ -41,7 +42,10 @@ class QuestionController extends Controller
      */
     public function store(AskQuestionRequest $request)
     {
-        dd('store');
+        $request->user()->questions()->create($request->only('title', 'body'));
+
+        // session()->flash();
+        return redirect()->route('questions.index')->with('success', 'Save question to database succesfully');
     }
 
     /**
