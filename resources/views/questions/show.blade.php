@@ -7,7 +7,7 @@
       <div class="card">
         <div class="card-header">
           <div class="d-flex align-items-center">
-            <h1 class="m-0">{{ $question->title }}</h1>
+            <h2 class="m-0 w-75">{{ $question->title }}</h2>
             <a href="{{ route('questions.index') }}" class="btn btn-outline-secondary ml-auto">Back to all Question</a>
           </div>
         </div>
