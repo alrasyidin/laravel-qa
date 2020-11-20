@@ -31,7 +31,9 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        return view('questions.create');
+        $question = new Question();
+
+        return view('questions.create', compact('question'));
     }
 
     /**
@@ -56,7 +58,7 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-        //
+        return view('questions.show', compact('question'));
     }
 
     /**
@@ -91,6 +93,8 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        //
+        $question->delete();
+        
+        return redirect()->route('questions.index')->with('success', 'Success delete question');
     }
 }
