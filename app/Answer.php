@@ -10,14 +10,19 @@ class Answer extends Model
         return \Parsedown::instance()->text($this->body);
     }
 
+    public function getCreatedDateAttribute(){
+        return $this->created_at->diffForHumans();
+    }
+
     public function user(){
-        return $this->belongsTo(Question::class);
+        return $this->belongsTo(User::class);
     }
 
     public function question(){
         return $this->belongsTo(Question::class);
     }
 
+    
     public static function boot(){
         parent::boot();
 
