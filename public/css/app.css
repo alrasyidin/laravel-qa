@@ -10940,3 +10940,38 @@ a.text-dark:focus {
   background: #38c172;
 }
 
+.vote-control {
+  min-width: 60px;
+  margin-right: 1em;
+  color: #343a40;
+}
+
+.vote-control a {
+  color: #6c757d;
+  cursor: pointer;
+}
+
+.vote-control a.off,
+.vote-control a.off:hover {
+  color: #adb5bd;
+}
+
+.vote-control a.favorited,
+.vote-control a.favorited:hover {
+  color: #ffed4a;
+}
+
+.vote-control a.vote-accepted,
+.vote-control a.vote-accepted:hover {
+  color: #38c172;
+}
+
+.vote-control span.votes-count {
+  font-size: 20px;
+}
+
+.vote-control span.favorite-count {
+  font-size: 12px;
+  color: #ffed4a;
+}
+
