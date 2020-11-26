@@ -19,3 +19,4 @@ Route::get('/questions/{slug}', 'QuestionController@show')->name('questions.show
 
 // answer base question use resource
 Route::resource('/questions.answers', 'AnswerController')->only(['store', 'edit', 'update', 'destroy']);
+Route::post('/answer/{answer}/accept', 'AcceptBestAnswerController')->name('answers.accept');
