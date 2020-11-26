@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model
 {
+    protected $fillable = ['user_id', 'body'];
+    
     public function getBodyHtmlAttribute() {
         return \Parsedown::instance()->text($this->body);
     }
