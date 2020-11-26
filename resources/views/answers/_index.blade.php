@@ -16,7 +16,7 @@
               <a title="This answer is useful" class="vote-down off">
                 <i class="fas fa-caret-down fa-3x"></i>
               </a>
-              <a title="Click to mark as best answer" class="vote-accepted off">
+              <a title="Click to mark as best answer" class="{{ $answer->status }} off">
                 <i class="fas fa-check fa-2x"></i>
               </a>
             </div>

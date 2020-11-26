@@ -31,7 +31,7 @@
             <div class="media-body">
               <div class="d-flex align-items-center">
                 <a href="{{ $question->url }}" class="w-75">
-                  <h1>{{ $question->title }}</h1>
+                  <h4>{{ $question->title }}</h4>
                 </a>
                 <div class="ml-auto">
                   {{-- bisa juga menggunakan directive @can --}}
@@ -69,7 +69,7 @@
                 <a href="{{ $question->user->url }}">{{ $question->user->name }}</a>
                 <small class="text-muted">{{ $question->created_date }}</small>
               </p>
-              {{ Str::limit($question->body, 250) }}
+              {{ Str::limit($question->body, 400) }}
             </div>
           </div>
           <hr>

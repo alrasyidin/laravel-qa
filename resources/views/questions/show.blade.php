@@ -34,7 +34,7 @@
             <div class="media-body">
               {!! $question->body_html !!}
               <div class="float-right">
-                <span class="text-muted">Dijawab {{ $question->created_date }}</span>
+                <span class="text-muted">Ditanya {{ $question->created_date }}</span>
                 <div class="media mt-1">
                   <a href="{{ $question->user->url }}" class="pr-2">
                     <img src="{{ $question->user->avatar }}" alt="Avatar User">

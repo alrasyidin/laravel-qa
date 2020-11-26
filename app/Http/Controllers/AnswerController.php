@@ -69,6 +69,15 @@ class AnswerController extends Controller
      */
     public function destroy(Question $question, Answer $answer)
     {
-        //
+        $this->authorize('delete', $answer);
+
+        $delete = $answer->delete();
+
+        // bisa dilakukan dengan cara ini atau dengan event
+        // if ($delete) {
+        //     $question->decrement('answers_count');
+        // }
+
+        return back()->with('success', 'Your answer has been removed');
     }
 }
