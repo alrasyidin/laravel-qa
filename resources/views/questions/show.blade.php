@@ -19,17 +19,24 @@
 
           <div class="media">
             <div class="d-flex flex-column align-items-center vote-control">
-              <a title="This question is useful" class="vote-up">
+              <a href="" title="This question is useful" class="vote-up">
                 <i class="fas fa-caret-up fa-3x"></i>
               </a>
               <span class="votes-count">1200</span>
-              <a title="This question is useful" class="vote-down off">
+              <a href="" title="This question is useful" class="vote-down">
                 <i class="fas fa-caret-down fa-3x"></i>
               </a>
-              <a title="Click to mark as favorite question" class="favorited">
+              <a href="" title="Click to mark as favorite question" class="{{ Auth::guest() ? 'off' : ($question->is_favorited ? 'favorited' : '')  }}" onclick="event.preventDefault(); document.getElementById('favorite-question-{{ $question->id }}').submit()">
                 <i class="fas fa-star fa-2x"></i>
+                <span class="favorite-count"><strong>{{ $question->favorites_count }}</strong></span>
               </a>
-              <span class="favorite-count">123</span>
+              <form action="/questions/{{ $question->id }}/favorite" id="favorite-question-{{ $question->id }}" method="POST" style="display: none">
+                @csrf
+
+                @if ($question->is_favorited)
+                    @method('DELETE')
+                @endif
+              </form>
             </div>
             <div class="media-body">
               {!! $question->body_html !!}

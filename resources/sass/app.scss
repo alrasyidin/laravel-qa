@@ -1,83 +1,100 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url("https://fonts.googleapis.com/css?family=Nunito");
 
 // Variables
-@import 'variables';
+@import "variables";
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
 
 // fontawesome
 // @import '~@fortawesome/fontawesome-free/css/all.css';
 
-.btn-cyan{
-  background-color: $cyan;
-  color: white;
+.btn-cyan {
+    background-color: $cyan;
+    color: white;
 }
 
-.counters{
-  margin-right: 1.25em;
-  font-size: 10px;
-  text-align: center;
+.counters {
+    margin-right: 1.25em;
+    font-size: 10px;
+    text-align: center;
 
-  strong{
-    display: block;
-    font-size: 2em;
-  }
-  
-  .vote, .status{
-    width: 60px;
-    height: 60px;
-    margin-bottom: 10px;
-  }
-
-  .status{
-    &.unanswered{
-      border: none;
+    strong {
+        display: block;
+        font-size: 2em;
     }
 
-    &.answered{
-      border: 1px solid $green;
-      color: $green;
+    .vote,
+    .status {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 10px;
     }
 
-    &.answer-accepted{
-      color: white;
-      background: $green;
+    .status {
+        &.unanswered {
+            border: none;
+        }
+
+        &.answered {
+            border: 1px solid $green;
+            color: $green;
+        }
+
+        &.answer-accepted {
+            color: white;
+            background: $green;
+        }
     }
-  }
 }
 
-.vote-control{
-  min-width: 60px;
-  margin-right: 1em;
-  color: $gray-800;
-  
-  a{
-    color: $gray-600;
-    cursor: pointer;
+.vote-control {
+    min-width: 60px;
+    margin-right: 1em;
+    color: $gray-800;
 
-    &.off, &.off:hover{
-      color: $gray-500;
+    a {
+        text-decoration: none;
+        color: $gray-500;
+        cursor: pointer;
+
+        &.off {
+            color: $gray-400;
+        }
+
+        &.favorited {
+            color: $orange;
+        }
+
+        &:hover {
+            color: $orange;
+        }
+
+        &.vote-up:hover,
+        &.vote-down:hover {
+            color: $gray-600;
+        }
+
+        &.vote-accepted,
+        &.vote-accepted:hover {
+            color: $green;
+        }
+
+        & i,
+        & span {
+            display: block;
+            text-align: center;
+        }
     }
 
-    &.favorited, &.favorited:hover{
-      color: $yellow;
-    }
+    span {
+        &.votes-count {
+            font-size: 20px;
+        }
 
-    &.vote-accepted, &.vote-accepted:hover{
-      color: $green;
-    } 
-  }
-
-  span{
-    &.votes-count{
-      font-size: 20px;
+        &.favorite-count {
+            font-size: 12px;
+        }
     }
-
-    &.favorite-count{
-      font-size: 12px;
-      color: $yellow;
-    }
-  }
 }

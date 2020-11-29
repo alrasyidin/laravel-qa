@@ -10947,23 +10947,37 @@ a.text-dark:focus {
 }
 
 .vote-control a {
-  color: #6c757d;
+  text-decoration: none;
+  color: #adb5bd;
   cursor: pointer;
 }
 
-.vote-control a.off,
-.vote-control a.off:hover {
-  color: #adb5bd;
+.vote-control a.off {
+  color: #ced4da;
 }
 
-.vote-control a.favorited,
-.vote-control a.favorited:hover {
-  color: #ffed4a;
+.vote-control a.favorited {
+  color: #f6993f;
+}
+
+.vote-control a:hover {
+  color: #f6993f;
+}
+
+.vote-control a.vote-up:hover,
+.vote-control a.vote-down:hover {
+  color: #6c757d;
 }
 
 .vote-control a.vote-accepted,
 .vote-control a.vote-accepted:hover {
   color: #38c172;
+}
+
+.vote-control a i,
+.vote-control a span {
+  display: block;
+  text-align: center;
 }
 
 .vote-control span.votes-count {
@@ -10972,6 +10986,5 @@ a.text-dark:focus {
 
 .vote-control span.favorite-count {
   font-size: 12px;
-  color: #ffed4a;
 }
 

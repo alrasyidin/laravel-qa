@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class QuestionAndUserTableSeeder extends Seeder
 {
@@ -11,6 +12,10 @@ class QuestionAndUserTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('questions')->delele();
+        DB::table('answer')->delele();
+        DB::table('users')->delele();
+
         factory(App\User::class, 10)
             ->create()
             ->each(function ($user) {

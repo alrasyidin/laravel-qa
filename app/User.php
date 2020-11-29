@@ -2,8 +2,9 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Question;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -70,4 +71,7 @@ class User extends Authenticatable
         return $this->hasMany(Answer::class);
     }
 
+    public function favorites(){
+        return $this->belongsToMany(Question::class, 'favorites')->withTimestamps();
+    }
 }

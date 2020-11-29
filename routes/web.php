@@ -13,6 +13,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/questions', 'QuestionController')->except('show');
 Route::get('/questions/{slug}', 'QuestionController@show')->name('questions.show');
+Route::post('/questions/{question}/favorite', 'FavoriteController@store')->name('questions.favorite');
+Route::delete('/questions/{question}/favorite', 'FavoriteController@destroy')->name('questions.unfavorite');
 
 // answer base question per method
 // Route::post('/question/{question}/answers', 'AnswerController@store')->name('questions.answer.store');

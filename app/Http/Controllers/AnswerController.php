@@ -19,6 +19,7 @@ class AnswerController extends Controller
         $request->validate([
             'body' => 'required'
         ]);
+        
 
         $question->answers()->create([
             'body' => $request->body,

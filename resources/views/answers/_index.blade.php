@@ -13,14 +13,14 @@
                 <i class="fas fa-caret-up fa-3x"></i>
               </a>
               <span class="votes-count">1200</span>
-              <a title="This answer is useful" class="vote-down off">
+              <a title="This answer is useful" class="vote-down">
                 <i class="fas fa-caret-down fa-3x"></i>
               </a>
               @can('accept', $answer)
                 <a title="Click to mark as best answer" class="{{ $answer->status }} off" onclick="event.preventDefault(); document.getElementById('accept-answer-{{ $answer->id }}').submit()">
                   <i class="fas fa-check fa-2x"></i>
                 </a>
-                <form action="{{ route('answers.accept', [$answer->id]) }}" id="accept-answer-{{ $answer->id }}" method="POST">
+                <form action="{{ route('answers.accept', [$answer->id]) }}" id="accept-answer-{{ $answer->id }}" method="POST" style="display: none">
                   @csrf
                 </form>
               @else 
