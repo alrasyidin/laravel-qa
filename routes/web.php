@@ -25,3 +25,5 @@ Route::post('/answer/{answer}/accept', 'AcceptBestAnswerController')->name('answ
 
 // vote question
 Route::post('/questions/{question}/vote', 'VoteQuestionController');
+// vote answer
+Route::post('/answers/{answer}/vote', 'VoteAnswerController');

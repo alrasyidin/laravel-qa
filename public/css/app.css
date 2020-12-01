@@ -10970,7 +10970,7 @@ a.text-dark:focus {
 }
 
 .vote-control a.vote-accepted,
-.vote-control a.vote-accepted:hover {
+.vote-control a.vote:hover {
   color: #38c172;
 }
 
