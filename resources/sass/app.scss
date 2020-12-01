@@ -76,8 +76,9 @@
             color: $gray-600;
         }
 
-        &.vote-accepted,
-        &.vote:hover {
+        &.answer:hover,
+        &.answer-accepted,
+        &.answer-accepted:hover {
             color: $green;
         }
 

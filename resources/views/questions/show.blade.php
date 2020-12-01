@@ -19,51 +19,18 @@
 
           <div class="media">
             <div class="d-flex flex-column align-items-center vote-control">
-              <a href="" title="This question is useful" class="vote-up {{ auth()->guest() ? 'off' : '' }}"
-                onclick="event.preventDefault(); document.getElementById('up-vote-question-{{ $question->id }}').submit()"
-                >
-                <i class="fas fa-caret-up fa-3x"></i>
-              </a>
-              <form action="/questions/{{ $question->id }}/vote" id="up-vote-question-{{ $question->id }}" method="POST" style="display: none">
-                @csrf
-                <input type="text" name="vote" value="1">
-              </form>
-
-              <span class="votes-count">{{ $question->votes_count }}</span>
-              
-              <a href="" title="This question is useful" class="vote-down {{ auth()->guest() ? 'off' : '' }}"
-                onclick="event.preventDefault(); document.getElementById('down-vote-question-{{ $question->id }}').submit()"
-                >
-                <i class="fas fa-caret-down fa-3x"></i>
-              </a>
-              <form action="/questions/{{ $question->id }}/vote" id="down-vote-question-{{ $question->id }}" method="POST" style="display: none">
-                @csrf
-                <input type="text" name="vote" value="-1">
-              </form>
-
-              <a href="" title="Click to mark as favorite question" class="{{ Auth::guest() ? 'off' : ($question->is_favorited ? 'favorited' : '')  }}" onclick="event.preventDefault(); document.getElementById('favorite-question-{{ $question->id }}').submit()">
-                <i class="fas fa-star fa-2x"></i>
-                <span class="favorite-count"><strong>{{ $question->favorites_count }}</strong></span>
-              </a>
-              <form action="/questions/{{ $question->id }}/favorite" id="favorite-question-{{ $question->id }}" method="POST" style="display: none">
-                @csrf
-
-                @if ($question->is_favorited)
-                    @method('DELETE')
-                @endif
-              </form>
+              @include('share/_vote', ['model' => $question])
             </div>
             <div class="media-body">
               {!! $question->body_html !!}
-              <div class="float-right">
-                <span class="text-muted">Ditanya {{ $question->created_date }}</span>
-                <div class="media mt-1">
-                  <a href="{{ $question->user->url }}" class="pr-2">
-                    <img src="{{ $question->user->avatar }}" alt="Avatar User">
-                  </a>
-                  <div class="media-body mt-2">
-                    <a href="{{ $question->user->url }}" class="">{{ $question->user->name }}</a>
-                  </div>
+              <div class="row">
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+                <div class="col-4">
+                  @include('share/_author', [
+                    'model' => $question,
+                    'label' => 'Ditanya'
+                  ])
                 </div>
               </div>
             </div>
