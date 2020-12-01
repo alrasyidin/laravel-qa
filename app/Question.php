@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Support\Str;
+use Mews\Purifier\Facades\Purifier;
 use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
@@ -17,6 +18,11 @@ class Question extends Model
         $this->attributes['title'] = $value;
         $this->attributes['slug'] = Str::slug($value);
     }
+    
+    // clean before input to database
+    // public function setBodyAttributes($value){
+    //     $this->attributes['body'] = Purifier::clean($value);
+    // }
 
     public function getUrlAttribute(){
         return route('questions.show', $this->slug);
@@ -38,7 +44,15 @@ class Question extends Model
     }
 
     public function getBodyHtmlAttribute() {
+        return Purifier::clean($this->bodyHtml());
+    }
+
+    public function bodyHtml() {
         return \Parsedown::instance()->text($this->body);
+    }
+
+    public function getExcerptAttribute() {
+        return Str::limit(strip_tags($this->bodyHtml()), 240);
     }
 
     public function answers(){

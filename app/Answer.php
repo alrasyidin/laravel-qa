@@ -3,13 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Mews\Purifier\Facades\Purifier;
 
 class Answer extends Model
 {
     protected $fillable = ['user_id', 'body'];
     
     public function getBodyHtmlAttribute() {
-        return \Parsedown::instance()->text($this->body);
+        return Purifier::clean(\Parsedown::instance()->text($this->body));
     }
 
     public function getCreatedDateAttribute(){
