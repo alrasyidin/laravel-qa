@@ -12,9 +12,9 @@ class QuestionAndUserTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('questions')->delele();
-        DB::table('answer')->delele();
-        DB::table('users')->delele();
+        // DB::table('questions')->delele();
+        // DB::table('answers')->delele();
+        // DB::table('users')->delele();
 
         factory(App\User::class, 10)
             ->create()

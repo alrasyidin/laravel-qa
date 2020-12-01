@@ -53,4 +53,7 @@ class Answer extends Model
         });
     }
 
+    public function votes(){
+        return $this->morphToMany(User::class, 'votable');
+    }
 }
