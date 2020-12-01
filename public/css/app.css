@@ -10969,8 +10969,9 @@ a.text-dark:focus {
   color: #6c757d;
 }
 
-.vote-control a.vote-accepted,
-.vote-control a.vote:hover {
+.vote-control a.answer:hover,
+.vote-control a.answer-accepted,
+.vote-control a.answer-accepted:hover {
   color: #38c172;
 }
 
@@ -10986,5 +10987,13 @@ a.text-dark:focus {
 
 .vote-control span.favorite-count {
   font-size: 12px;
+}
+
+.post {
+  padding: 20px 0;
+}
+
+.post:not(:last-child) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
