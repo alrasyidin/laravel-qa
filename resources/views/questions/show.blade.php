@@ -27,10 +27,12 @@
                 <div class="col-4"></div>
                 <div class="col-4"></div>
                 <div class="col-4">
-                  @include('share/_author', [
+                  {{-- @include('share/_author', [
                     'model' => $question,
                     'label' => 'Ditanya'
-                  ])
+                  ]) --}}
+
+                  <user-info :model="{{ $question }}" label="Ditanya"></user-info>
                 </div>
               </div>
             </div>
