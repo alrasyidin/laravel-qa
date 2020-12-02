@@ -28,6 +28,7 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.1",
         "@fortawesome/fontawesome-svg-core": "^1.2.32",
-        "@fortawesome/free-solid-svg-icons": "^5.15.1"
+        "@fortawesome/free-solid-svg-icons": "^5.15.1",
+        "vue-izitoast": "^1.2.1"
     }
 }

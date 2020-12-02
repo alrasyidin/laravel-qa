@@ -22,8 +22,12 @@ export default {
                     let data = res.data;
                     this.bodyHtml = data.body_html;
                     this.editing = false;
+
+                    this.$toast.success(res.data.message, 'Success', { timeout: 3000})
                 })
-                .catch(err => console.log(err));
+                .catch(err => {
+                    this.$toast.error(res.response.data.message, 'Error', { timeout: 3000})
+                });
         },
         edit() {
             this.beforeEditCacheState = this.body;
@@ -36,17 +40,41 @@ export default {
             this.editing = false;
         },
         destroy() {
-          if(confirm('Are you sure?')){
-            axios
-                .delete(this.endpoint)
-                .then(res => {
-                  console.log(res)
-                  $(this.$el).fadeOut(500, () => {
-                    alert(res.data.message)
-                  })
-                })
-                .catch(err => console.log(err.response));
-          }
+            this.$toast.question('Are you sure about that?', 'Confirm', {
+              timeout: 3000,
+              close: false,
+              overlay: true,
+              displayMode: 'once',
+              id: 'question',
+              zindex: 999,
+              title: 'Hey',
+              position: 'center',
+              buttons:[
+                [
+                  '<button><b>YES</b></button>',
+                  (instance, toast) => {
+                    axios
+                        .delete(this.endpoint)
+                        .then(res => {
+                          console.log(res)
+                          $(this.$el).fadeOut(500, () => {
+                            this.$toast.success(res.data.message, 'Success', {timeout: 3000})
+                          })
+                        })
+                        .catch(err => console.log(err.response));
+
+                    instance.hide({transitionOut: 'fadeOut'}, toast, 'button')
+                  },
+                  true
+                ],
+                [
+                  '<button><b>NO</b></button>',
+                  (instance, toast) => {
+                    instance.hide({transitionOut: 'fadeOut'}, toast, 'button')
+                  }
+                ]
+              ] 
+            })
         }
     },
     computed: {
