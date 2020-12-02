@@ -59,6 +59,13 @@ class AnswerController extends Controller
             'body' => $request->body
         ]);
 
+        if($request->expectsJson()){
+            return response()->json([
+                'message' => 'Update question to database succesfully',
+                'body_html' => $answer->body_html
+            ]);
+        }
+
         return redirect()->route('questions.show', $question->slug)->with('success', 'Your answer has been updated');
     }
 

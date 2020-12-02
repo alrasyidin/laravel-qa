@@ -8,6 +8,7 @@ use Mews\Purifier\Facades\Purifier;
 class Answer extends Model
 {
     protected $fillable = ['user_id', 'body'];
+    protected $appends = ['body_html'];
     
     public function getBodyHtmlAttribute() {
         return Purifier::clean(\Parsedown::instance()->text($this->body));
