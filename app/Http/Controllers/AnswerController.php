@@ -86,6 +86,12 @@ class AnswerController extends Controller
         //     $question->decrement('answers_count');
         // }
 
+        if(request()->expectsJson()){
+            return response()->json([
+                'message' => 'Your answer has been removed',
+            ]);
+        }
+
         return back()->with('success', 'Your answer has been removed');
     }
 }

@@ -22,13 +22,7 @@
               @endcan
 
               @can('delete', $answer)
-              <form action="{{ route('questions.answers.destroy', [$question->id, $answer->id] ) }}" method="post"
-                class="d-inline-block">
-                @csrf
-                @method('DELETE')
-                <button class="btn btn-sm btn-outline-danger"
-                  onclick="return confirm('Are you sure delete this question?');" type="submit">Delete</button>
-              </form>
+                <button class="btn btn-sm btn-outline-danger" @click="destroy">Delete</button>
               @endcan
             </div>
           </div>
