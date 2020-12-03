@@ -11486,9 +11486,6 @@ __webpack_require__.r(__webpack_exports__);
       id: this.answer.id
     };
   },
-  created: function created() {
-    console.log('bandung');
-  },
   computed: {
     classes: function classes() {
       return ['answer', this.isBest ? 'answer-accepted' : ''];
@@ -11774,6 +11771,9 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     classes: function classes() {
       return this.signedIn ? '' : 'off';
+    },
+    endpoint: function endpoint() {
+      return "/".concat(this.name, "s/").concat(this.model.id, "/vote");
     }
   },
   methods: {
@@ -11783,6 +11783,33 @@ __webpack_require__.r(__webpack_exports__);
         down: "This ".concat(this.name, " is not useful")
       };
       return titles[voteType];
+    },
+    voteUp: function voteUp() {
+      this._vote(1);
+    },
+    voteDown: function voteDown() {
+      this._vote(-1);
+    },
+    _vote: function _vote(vote) {
+      var _this = this;
+
+      if (!this.signedIn) {
+        this.$toast.warning("Please login to vote this ".concat(this.name));
+        return;
+      }
+
+      axios.post(this.endpoint, {
+        vote: vote
+      }).then(function (_ref) {
+        var data = _ref.data;
+
+        _this.$toast.success(data.message, 'Success', {
+          timeout: 3000,
+          position: 'bottomLeft'
+        });
+
+        _this.count = data.votesCount;
+      });
     }
   }
 });
@@ -48177,7 +48204,8 @@ var render = function() {
         {
           staticClass: "vote-up",
           class: _vm.classes,
-          attrs: { title: _vm.title("up") }
+          attrs: { title: _vm.title("up") },
+          on: { click: _vm.voteUp }
         },
         [_c("i", { staticClass: "fas fa-caret-up fa-3x" })]
       ),
@@ -48189,7 +48217,8 @@ var render = function() {
         {
           staticClass: "vote-down",
           class: _vm.classes,
-          attrs: { title: _vm.title("down") }
+          attrs: { title: _vm.title("down") },
+          on: { click: _vm.voteDown }
         },
         [_c("i", { staticClass: "fas fa-caret-down fa-3x" })]
       ),

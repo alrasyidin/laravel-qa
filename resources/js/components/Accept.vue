@@ -23,9 +23,6 @@ export default {
             id: this.answer.id,
         }
     },
-    created(){
-        console.log('bandung')
-    },
     computed: {
         classes() {
             return ['answer', this.isBest ? 'answer-accepted': '']
