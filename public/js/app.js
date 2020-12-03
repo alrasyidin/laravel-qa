@@ -11578,12 +11578,19 @@ __webpack_require__.r(__webpack_exports__);
     return {
       id: this.question.id,
       count: this.question.favorites_count,
-      isFavorited: this.question.is_favorited,
-      signedIn: true
+      isFavorited: this.question.is_favorited
     };
   },
   methods: {
     toggle: function toggle() {
+      if (!this.signedIn) {
+        this.$toast.warning('You must login to favorite this question', 'Warning', {
+          timeout: 3000,
+          position: 'bottomLeft'
+        });
+        return;
+      }
+
       this.isFavorited ? this.destroy() : this.create();
     },
     create: function create() {
@@ -11609,6 +11616,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     endpoint: function endpoint() {
       return "/questions/".concat(this.id, "/favorite");
+    },
+    signedIn: function signedIn() {
+      return window.Auth.signedIn;
     }
   }
 });

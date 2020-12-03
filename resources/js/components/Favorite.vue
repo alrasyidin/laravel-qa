@@ -20,11 +20,17 @@ export default {
             id: this.question.id,
             count: this.question.favorites_count,
             isFavorited: this.question.is_favorited,
-            signedIn: true,
         }
     },
     methods: {
         toggle() {
+            if(! this.signedIn){
+              this.$toast.warning('You must login to favorite this question', 'Warning', {
+                timeout: 3000,
+                position: 'bottomLeft'
+              })
+              return
+            }
             this.isFavorited ? this.destroy() : this.create()
         },
         create() {
@@ -49,6 +55,10 @@ export default {
         endpoint() {
             return `/questions/${this.id}/favorite`
         },
+
+        signedIn(){
+          return window.Auth.signedIn
+        }
     },
 }
 </script>
