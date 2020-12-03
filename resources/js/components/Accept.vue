@@ -31,7 +31,7 @@ export default {
             return !this.canAccept && this.isBest
         },
         canAccept() {
-            return true
+            return this.authorize('accept', this.answer)
         },
     },
     methods: {
