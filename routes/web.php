@@ -18,7 +18,7 @@ Route::delete('/questions/{question}/favorite', 'FavoriteController@destroy')->n
 // Route::post('/question/{question}/answers', 'AnswerController@store')->name('questions.answer.store');
 
 // answer base question use resource
-Route::resource('/questions.answers', 'AnswerController')->only(['store', 'edit', 'update', 'destroy']);
+Route::resource('/questions.answers', 'AnswerController')->only(['store', 'edit', 'update', 'destroy', 'index']);
 Route::post('/answer/{answer}/accept', 'AcceptBestAnswerController')->name('answers.accept');
 
 // vote question

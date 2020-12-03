@@ -43,7 +43,7 @@
     </div>
   </div>
 
-  <answers :count="{{ $question->answers_count }}" :answers="{{ $question->answers }}"></answers>
+  <answers :question="{{ $question }}"></answers>
   
   @include('answers._create', ['question_id' => $question->id])
 </div>

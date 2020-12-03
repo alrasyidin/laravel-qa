@@ -12,6 +12,10 @@
                         :key="answer.id"
                         :answer="answer"
                     />
+
+                    <div class="d-flex justify-content-center align-items-center py-4" v-if="nextUrl">
+                      <button @click.prevent="fetch(nextUrl)" class="btn btn-outline-secondary">Load more answers</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -22,15 +26,38 @@
 import Answer from './Answer.vue'
 
 export default {
-    props: ['answers', 'count'],
+    props: ['question'],
     components: { Answer },
     data() {
-        return {}
+        return {
+          questionId: this.question.id,
+          count: this.question.answers_count,
+          answers: [],
+          nextUrl: null
+        }
+    },
+    created(){
+      this.fetch(`/questions/${this.questionId}/answers`)
     },
     computed: {
         headCount() {
           return `${this.count} ${this.count > 0 ? 'Answers' : 'Answer'}`
         },
     },
+    methods: {
+      fetch(endpoint){
+        axios.get(endpoint)
+          .then(({data}) => {
+            this.answers.push(...data.data)
+
+            if(data.next_page_url){
+              let url = new URL(data.next_page_url)
+              this.nextUrl = `${url.pathname}/${url.search}`
+            } else {
+              this.nextUrl = null
+            }
+          })
+      }
+    }
 }
 </script>
