@@ -10,7 +10,7 @@
                     <answer
                         @deleted="remove(index, $event)"
                         v-for="(answer, index) in answers"
-                        :key="answer.id"
+                        :key="index"
                         :answer="answer"
                     />
 

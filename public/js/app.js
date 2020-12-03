@@ -11462,6 +11462,7 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _event_bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../event-bus */ "./resources/js/event-bus.js");
 //
 //
 //
@@ -11478,6 +11479,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['answer'],
   data: function data() {
@@ -11485,6 +11491,13 @@ __webpack_require__.r(__webpack_exports__);
       isBest: this.answer.is_best,
       id: this.answer.id
     };
+  },
+  created: function created() {
+    var _this = this;
+
+    _event_bus__WEBPACK_IMPORTED_MODULE_0__["default"].$on('accepted', function (id) {
+      _this.isBest = id == _this.id;
+    });
   },
   computed: {
     classes: function classes() {
@@ -11494,20 +11507,22 @@ __webpack_require__.r(__webpack_exports__);
       return !this.canAccept && this.isBest;
     },
     canAccept: function canAccept() {
-      return this.authorize('accept', this.answer);
+      if (!this.isBest) {
+        return this.authorize('accept', this.answer);
+      }
     }
   },
   methods: {
     create: function create() {
-      var _this = this;
+      var _this2 = this;
 
       axios.post("/answer/".concat(this.id, "/accept")).then(function (res) {
-        _this.$toast.success(res.data.message, 'Success', {
+        _this2.$toast.success(res.data.message, 'Success', {
           timeout: 3000,
           position: 'bottomLeft'
         });
 
-        _this.isBest = true;
+        _event_bus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('accepted', _this2.id);
       });
     }
   }
@@ -48251,7 +48266,7 @@ var render = function() {
           "a",
           {
             class: _vm.classes,
-            attrs: { title: "Click to mark as best answer" }
+            attrs: { title: "this answer is best answer" }
           },
           [_c("i", { staticClass: "fas fa-check fa-2x" })]
         )
@@ -48447,7 +48462,7 @@ var render = function() {
                 _vm._v(" "),
                 _vm._l(_vm.answers, function(answer, index) {
                   return _c("answer", {
-                    key: answer.id,
+                    key: index,
                     attrs: { answer: answer },
                     on: {
                       deleted: function($event) {
@@ -60893,12 +60908,19 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   modify: function modify(user, model) {
-    return user.id == model.user_id;
+    if (!Object(lodash__WEBPACK_IMPORTED_MODULE_0__["isNull"])(user)) {
+      return user.id == model.user_id;
+    }
   },
   accept: function accept(user, answer) {
-    return user.id == answer.question.user_id;
+    if (!Object(lodash__WEBPACK_IMPORTED_MODULE_0__["isNull"])(user)) {
+      return user.id == answer.question.user_id;
+    }
   }
 });
 
@@ -61374,6 +61396,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Vote_vue_vue_type_template_id_40e744d5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/event-bus.js":
+/*!***********************************!*\
+  !*** ./resources/js/event-bus.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+
+var EventBus = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
+/* harmony default export */ __webpack_exports__["default"] = (EventBus);
 
 /***/ }),
 

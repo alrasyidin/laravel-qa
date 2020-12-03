@@ -8,13 +8,18 @@
         >
             <i class="fas fa-check fa-2x"></i>
         </a>
-        <a v-if="accepted" title="Click to mark as best answer" :class="classes">
+        <a
+            v-if="accepted"
+            title="this answer is best answer"
+            :class="classes"
+        >
             <i class="fas fa-check fa-2x"></i>
         </a>
     </div>
 </template>
 
 <script>
+import EventBus from '../event-bus'
 export default {
     props: ['answer'],
     data() {
@@ -23,15 +28,22 @@ export default {
             id: this.answer.id,
         }
     },
+    created() {
+        EventBus.$on('accepted', id => {
+            this.isBest = id == this.id
+        })
+    },
     computed: {
         classes() {
-            return ['answer', this.isBest ? 'answer-accepted': '']
+            return ['answer', this.isBest ? 'answer-accepted' : '']
         },
         accepted() {
             return !this.canAccept && this.isBest
         },
         canAccept() {
-            return this.authorize('accept', this.answer)
+            if(!this.isBest){
+                return this.authorize('accept', this.answer)
+            }
         },
     },
     methods: {
@@ -42,7 +54,7 @@ export default {
                     position: 'bottomLeft',
                 })
 
-                this.isBest = true
+                EventBus.$emit('accepted', this.id)
             })
         },
     },
