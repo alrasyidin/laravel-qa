@@ -8,7 +8,7 @@ use Mews\Purifier\Facades\Purifier;
 class Answer extends Model
 {
     protected $fillable = ['user_id', 'body'];
-    protected $appends = ['body_html'];
+    protected $appends = ['created_date','body_html', 'is_best'];
     
     public function getBodyHtmlAttribute() {
         return Purifier::clean(\Parsedown::instance()->text($this->body));
@@ -27,7 +27,7 @@ class Answer extends Model
     }
 
     public function getStatusAttribute(){
-        return $this->isBest() ? 'vote-accepted' : '';
+        return $this->isBest() ? 'answer-accepted' : '';
     }
 
     public function getIsBestAttribute(){

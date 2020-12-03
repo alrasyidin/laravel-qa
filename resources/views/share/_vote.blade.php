@@ -42,8 +42,9 @@
   {{-- @include('share/_favorite', ['model' => $model]) --}}
   <favorite :question="{{$model}}"></favorite>
   
-@elseif ($model instanceof App\Answer)
-
-  @include('share/_accept', ['model' => $model])
+  @elseif ($model instanceof App\Answer)
+  
+  {{-- @include('share/_accept', ['model' => $model]) --}}
+  <accept :answer="{{$model}}"></accept>
 
 @endif
