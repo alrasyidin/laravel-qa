@@ -1,8 +1,8 @@
 <answer :answer="{{ $answer }}" inline-template>
   <div class="media post">
-    <div class="d-flex flex-column align-items-center vote-control">
-      @include('share/_vote', ['model' => $answer])
-    </div>
+    {{-- vote component --}}
+    <vote name="answer" :model="{{ $answer }}"></vote>
+
     <div class="media-body">
       <form v-if="editing" v-on:submit.prevent="update">
         <div class="form-group">
@@ -17,12 +17,11 @@
           <div class="col-4">
             <div class="ml-auto">
               @can('update', $answer)
-              <a @click.prevent="edit"
-                class="btn btn-sm btn-outline-info">Edit</a>
+              <a @click.prevent="edit" class="btn btn-sm btn-outline-info">Edit</a>
               @endcan
 
               @can('delete', $answer)
-                <button class="btn btn-sm btn-outline-danger" @click="destroy">Delete</button>
+              <button class="btn btn-sm btn-outline-danger" @click="destroy">Delete</button>
               @endcan
             </div>
           </div>

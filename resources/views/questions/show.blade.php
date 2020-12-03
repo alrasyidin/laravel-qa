@@ -18,9 +18,9 @@
           <hr>
 
           <div class="media">
-            <div class="d-flex flex-column align-items-center vote-control">
-              @include('share/_vote', ['model' => $question])
-            </div>
+            {{-- vote component --}}
+            <vote name="question" :model="{{ $question }}"></vote>
+
             <div class="media-body">
               {!! $question->body_html !!}
               <div class="row">

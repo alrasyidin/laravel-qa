@@ -27,7 +27,7 @@
 
 <span class="votes-count">{{ $model->votes_count }}</span>
 
-<a href="" title="This {{ $name }} is useful" class="vote-down {{ auth()->guest() ? 'off' : '' }}"
+<a href="" title="This {{ $name }} is not useful" class="vote-down {{ auth()->guest() ? 'off' : '' }}"
   onclick="event.preventDefault(); document.getElementById('down-vote-{{ $formId }}').submit()">
   <i class="fas fa-caret-down fa-3x"></i>
 </a>

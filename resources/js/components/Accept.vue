@@ -23,6 +23,9 @@ export default {
             id: this.answer.id,
         }
     },
+    created(){
+        console.log('bandung')
+    },
     computed: {
         classes() {
             return ['answer', this.isBest ? 'answer-accepted': '']
@@ -37,7 +40,6 @@ export default {
     methods: {
         create() {
             axios.post(`/answer/${this.id}/accept`).then(res => {
-                console.log(res)
                 this.$toast.success(res.data.message, 'Success', {
                     timeout: 3000,
                     position: 'bottomLeft',
