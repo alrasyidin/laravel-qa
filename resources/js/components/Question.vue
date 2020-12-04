@@ -1,0 +1,205 @@
+<template>
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <form class="card-body" v-if="editing" @submit.prevent="update">
+                    <div class="card-title">
+                        <input
+                            type="text"
+                            v-model="title"
+                            class="form-control form-control-lg"
+                        />
+                    </div>
+
+                    <div class="media">
+                        <textarea
+                            v-model="body"
+                            class="form-control form-control-lg"
+                            rows="8"
+                        ></textarea>
+                    </div>
+                    <div class="form-group mt-4">
+                        <button
+                            type="submit"
+                            class="btn btn-sm btn-primary"
+                            :disabled="isInvalid"
+                        >
+                            Update
+                        </button>
+                        <button
+                            class="btn btn-sm btn-secondary"
+                            @click.prevent="cancel"
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+                <div class="card-body" v-else>
+                    <div class="card-title">
+                        <div class="d-flex align-items-center">
+                            <h2 class="m-0 w-75">{{ title }}</h2>
+                            <a
+                                href="/questions"
+                                class="btn btn-outline-secondary ml-auto"
+                                >Back to all Question</a
+                            >
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="media">
+                        <vote name="question" :model="question"></vote>
+
+                        <div class="media-body">
+                            <div v-html="bodyHtml"></div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="ml-auto">
+                                        <a
+                                            v-if="
+                                                this.authorize(
+                                                    'modify',
+                                                    question
+                                                )
+                                            "
+                                            @click.prevent="edit"
+                                            class="btn btn-sm btn-outline-info"
+                                        >
+                                            Edit
+                                        </a>
+                                        <button
+                                            v-if="
+                                                this.authorize(
+                                                    'modify',
+                                                    question
+                                                )
+                                            "
+                                            class="btn btn-sm btn-outline-danger"
+                                            @click="destroy"
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-4"></div>
+                                <div class="col-4">
+                                    <user-info
+                                        :model="question"
+                                        label="Ditanya"
+                                    ></user-info>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    props: ['question'],
+    data() {
+        return {
+            title: this.question.title,
+            body: this.question.body,
+            bodyHtml: this.question.body_html,
+            editing: false,
+            beforeEditCacheState: {},
+        }
+    },
+    computed: {
+        isInvalid() {
+            return this.title.length < 10 || this.body.length < 10
+        },
+        endpoint() {
+            return `/questions/${this.question.id}`
+        },
+    },
+    methods: {
+        edit() {
+            this.beforeEditCacheState.title = this.title
+            this.beforeEditCacheState.body = this.body
+            this.editing = true
+        },
+        cancel() {
+            this.title = this.beforeEditCacheState.title
+            this.body = this.beforeEditCacheState.body
+            this.editing = false
+        },
+        update() {
+            axios
+                .put(this.endpoint, {
+                  title: this.title,
+                  body: this.body
+                })
+                .then(({ data }) => {
+                    this.bodyHtml = data.body_html
+
+                    this.editing = false
+
+                    this.$toast.success(data.message, 'Success')
+                })
+                .catch(({ resposne }) => {
+                    this.$toast.error(response.data.message, 'error')
+                })
+        },
+        destroy() {
+            this.$toast.question('Are you sure about that?', 'Confirm', {
+                timeout: 3000,
+                close: false,
+                overlay: true,
+                displayMode: 'once',
+                id: 'question',
+                zindex: 999,
+                title: 'Hey',
+                position: 'center',
+                buttons: [
+                    [
+                        '<button><b>YES</b></button>',
+                        (instance, toast) => {
+                            axios
+                                .delete(this.endpoint)
+                                .then(({ data }) => {
+                                    this.$toast.success(
+                                        data.message,
+                                        'Success',
+                                        { tiemout: 3000 }
+                                    )
+                                })
+                                .catch(({ response }) =>
+                                    this.$toast.error(
+                                        response.data.message,
+                                        'Error'
+                                    )
+                                )
+
+                            setTimeout(() => {
+                                window.location.href = '/questions'
+                            }, 4000)
+                            instance.hide(
+                                { transitionOut: 'fadeOut' },
+                                toast,
+                                'button'
+                            )
+                        },
+                        true,
+                    ],
+                    [
+                        '<button><b>NO</b></button>',
+                        (instance, toast) => {
+                            instance.hide(
+                                { transitionOut: 'fadeOut' },
+                                toast,
+                                'button'
+                            )
+                        },
+                    ],
+                ],
+            })
+        },
+    },
+}
+</script>
