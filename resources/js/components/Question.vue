@@ -71,7 +71,7 @@
                                         <button
                                             v-if="
                                                 this.authorize(
-                                                    'modify',
+                                                    'deleteQuestion',
                                                     question
                                                 )
                                             "
@@ -99,8 +99,14 @@
 </template>
 
 <script>
+import Vote from './Vote'
+import UserInfo from './UserInfo'
+
 export default {
     props: ['question'],
+    components: {
+      Vote, UserInfo
+    },
     data() {
         return {
             title: this.question.title,

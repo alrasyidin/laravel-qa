@@ -57,10 +57,11 @@
 </template>
 
 <script>
-import UserInfo from "./UserInfo.vue"
+import Vote from './Vote'
+import UserInfo from './UserInfo'
 
 export default{
-    components: { UserInfo },
+    components: { Vote, UserInfo },
     props: ['answer'],
     data() {
         return {

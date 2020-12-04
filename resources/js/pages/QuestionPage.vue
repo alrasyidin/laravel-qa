@@ -7,7 +7,13 @@
 </template>
 
 <script>
+import Answers from '../components/Answers'
+import Question from '../components/Question'
 export default {
     props: ['question'],
+    components: {
+      Question,
+      Answers
+    }
 }
 </script>

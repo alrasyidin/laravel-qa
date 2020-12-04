@@ -11,4 +11,12 @@ export default {
             return user.id == answer.question.user_id
         }
     },
+
+    deleteQuestion(user, question) {
+        if (!isNull(user)) {
+            return user.id == question.user_id && question.answers_count < 1
+        }
+    },
+
+    
 }
