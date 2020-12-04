@@ -44,7 +44,5 @@
   </div>
 
   <answers :question="{{ $question }}"></answers>
-  
-  @include('answers._create', ['question_id' => $question->id])
 </div>
 @endsection

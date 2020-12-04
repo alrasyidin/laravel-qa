@@ -1,42 +1,47 @@
 <template>
-    <div class="row mt-5" v-cloak v-if="count">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-title">
-                        <h2>{{ headCount }}</h2>
-                    </div>
-                    <hr />
-                    <answer
-                        @deleted="remove(index, $event)"
-                        v-for="(answer, index) in answers"
-                        :key="index"
-                        :answer="answer"
-                    />
+    <div>
+        <div class="row mt-5" v-cloak v-if="count">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <h2>{{ headCount }}</h2>
+                        </div>
+                        <hr />
+                        <answer
+                            @deleted="remove(index, $event)"
+                            v-for="(answer, index) in answers"
+                            :key="index"
+                            :answer="answer"
+                        />
 
-                    <div
-                        class="d-flex justify-content-center align-items-center py-4"
-                        v-if="nextUrl"
-                    >
-                        <button
-                            @click.prevent="fetch(nextUrl)"
-                            class="btn btn-outline-secondary"
+                        <div
+                            class="d-flex justify-content-center align-items-center py-4"
+                            v-if="nextUrl"
                         >
-                            Load more answers
-                        </button>
+                            <button
+                                @click.prevent="fetch(nextUrl)"
+                                class="btn btn-outline-secondary"
+                            >
+                                Load more answers
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <new-answer @created="add" :question-id="question.id" />
     </div>
 </template>
 
 <script>
 import Answer from './Answer.vue'
+import NewAnswer from './NewAnswer.vue'
 
 export default {
     props: ['question'],
-    components: { Answer },
+    components: { Answer, NewAnswer },
     data() {
         return {
             questionId: this.question.id,
@@ -71,6 +76,11 @@ export default {
             this.count--
             this.$toast.success(event, 'Success', { timeout: 3000 })
         },
+
+        add(event){
+            console.log(event)
+            this.answers.push(event)
+        }
     },
 }
 </script>
