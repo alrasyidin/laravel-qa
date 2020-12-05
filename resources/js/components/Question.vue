@@ -12,11 +12,13 @@
           </div>
 
           <div class="media">
-            <textarea
-              v-model="body"
-              class="form-control form-control-lg"
-              rows="8"
-            ></textarea>
+            <editor>
+              <textarea
+                v-model="body"
+                class="form-control form-control-lg"
+                rows="8"
+              ></textarea>
+            </editor>
           </div>
           <div class="form-group mt-4">
             <button
@@ -83,14 +85,16 @@
 <script>
 import Vote from './Vote'
 import UserInfo from './UserInfo'
-import modification from '../mixins/modification'
+import Editor from './Editor'
 
+import modification from '../mixins/modification'
 export default {
   props: ['question'],
   mixins: [modification],
   components: {
     Vote,
     UserInfo,
+    Editor
   },
   data() {
     return {
