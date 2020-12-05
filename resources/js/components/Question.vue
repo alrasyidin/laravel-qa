@@ -2,13 +2,9 @@
   <div class="row justify-content-center">
     <div class="col-md-12">
       <div class="card">
-        <form class="card-body" v-if="editing" @submit.prevent="update">
+        <form class="card-body" v-show="authorize('modify', question) && editing" @submit.prevent="update">
           <div class="card-title">
-            <input
-              type="text"
-              v-model="title"
-              class="form-control"
-            />
+            <input type="text" v-model="title" class="form-control" />
           </div>
 
           <div class="media">
@@ -34,7 +30,7 @@
             </button>
           </div>
         </form>
-        <div class="card-body" v-else>
+        <div class="card-body" v-show="!editing">
           <div class="card-title">
             <div class="d-flex align-items-center">
               <h2 class="m-0 w-75">{{ title }}</h2>
@@ -50,7 +46,7 @@
             <vote name="question" :model="question"></vote>
 
             <div class="media-body">
-              <div v-html="bodyHtml"></div>
+              <div v-html="bodyHtml" ref="bodyHtml"></div>
               <div class="row">
                 <div class="col-4">
                   <div class="ml-auto">
@@ -89,6 +85,7 @@ import UserInfo from './UserInfo'
 import Editor from './Editor'
 import modification from '../mixins/modification'
 import autosize from 'autosize'
+import highlight from 'highlight.js'
 
 export default {
   props: ['question'],
@@ -96,7 +93,7 @@ export default {
   components: {
     Vote,
     UserInfo,
-    Editor
+    Editor,
   },
   data() {
     return {
@@ -104,17 +101,9 @@ export default {
       body: this.question.body,
       bodyHtml: this.question.body_html,
       beforeEditCacheState: {},
-      textarea: {
-        height: 200,
-        overflow: 'hidden'
-      }
     }
   },
   methods: {
-    autosize(e){
-      let newHeight = `${e.target.scrollHeight}`
-      this.textarea.height = newHeight
-    },
     setEditCache() {
       this.beforeEditCacheState.title = this.title
       this.beforeEditCacheState.body = this.body
@@ -152,9 +141,13 @@ export default {
       return `/questions/${this.question.id}`
     },
   },
-  updated(){
-    // console.log(this.$el.querySelector('textarea'))
-    autosize(this.$el.querySelector('textarea'))
+  updated() {
+    autosize(this.$refs.textbox)
+
+    // highlight.highlightAuto(this.$refs.bodyHtml)
   },
+  mounted(){
+    highlight.initHighlightingOnLoad()
+  }
 }
 </script>

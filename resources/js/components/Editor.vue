@@ -22,15 +22,20 @@
 
 <script>
 import MarkdownIt from 'markdown-it'
+import higlightjs from 'markdown-it-highlightjs'
+// import prism from 'markdown-it-prism'
+// import 'highlight.js/styles/xcode.css'
 let markdown = new MarkdownIt()
+markdown.use(higlightjs, { inline: true })
 
 export default {
   props: ['body'],
   computed: {
     preview(){
+      // return (this.body)
       return markdown.render(this.body)
     }
-  }
+  },
 }
 </script>
 

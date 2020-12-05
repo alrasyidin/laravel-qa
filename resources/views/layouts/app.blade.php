@@ -16,6 +16,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/prismjs-themes/prism.css') }}" rel="stylesheet"> --}}
+    <link href="{{ asset('css/higlightjs-styles/xcode.css') }}" rel="stylesheet">
 </head>
 
 <body>
