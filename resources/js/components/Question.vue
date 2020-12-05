@@ -7,16 +7,17 @@
             <input
               type="text"
               v-model="title"
-              class="form-control form-control-lg"
+              class="form-control"
             />
           </div>
 
           <div class="media">
-            <editor>
+            <editor :body="body">
               <textarea
                 v-model="body"
-                class="form-control form-control-lg"
+                class="form-control"
                 rows="8"
+                ref="textbox"
               ></textarea>
             </editor>
           </div>
@@ -86,8 +87,9 @@
 import Vote from './Vote'
 import UserInfo from './UserInfo'
 import Editor from './Editor'
-
 import modification from '../mixins/modification'
+import autosize from 'autosize'
+
 export default {
   props: ['question'],
   mixins: [modification],
@@ -102,9 +104,17 @@ export default {
       body: this.question.body,
       bodyHtml: this.question.body_html,
       beforeEditCacheState: {},
+      textarea: {
+        height: 200,
+        overflow: 'hidden'
+      }
     }
   },
   methods: {
+    autosize(e){
+      let newHeight = `${e.target.scrollHeight}`
+      this.textarea.height = newHeight
+    },
     setEditCache() {
       this.beforeEditCacheState.title = this.title
       this.beforeEditCacheState.body = this.body
@@ -141,6 +151,10 @@ export default {
     endpoint() {
       return `/questions/${this.question.id}`
     },
+  },
+  updated(){
+    // console.log(this.$el.querySelector('textarea'))
+    autosize(this.$el.querySelector('textarea'))
   },
 }
 </script>
