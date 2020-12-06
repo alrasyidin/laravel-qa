@@ -2,8 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Parsedown;
 use Mews\Purifier\Facades\Purifier;
+use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model
 {
@@ -11,7 +12,7 @@ class Answer extends Model
     protected $appends = ['created_date','body_html', 'is_best'];
     
     public function getBodyHtmlAttribute() {
-        return Purifier::clean(\Parsedown::instance()->text($this->body));
+        return Purifier::clean(Parsedown::instance()->text($this->body));
     }
 
     public function getCreatedDateAttribute(){

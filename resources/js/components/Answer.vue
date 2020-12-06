@@ -3,9 +3,11 @@
     <vote name="answer" :model="answer"></vote>
 
     <div class="media-body">
-      <form v-if="editing" v-on:submit.prevent="update">
+      <form v-show="authorize('modify', answer) && editing" v-on:submit.prevent="update">
         <div class="form-group">
-          <textarea rows="8" v-model="body" class="form-control"></textarea>
+          <editor :body="body" :name="uniqueName">
+            <textarea rows="8" v-model="body" class="form-control" ref="textbox"></textarea>
+          </editor>
         </div>
         <button
           type="submit"
@@ -18,8 +20,9 @@
           Cancel
         </button>
       </form>
-      <div v-else>
-        <div v-html="bodyHtml"></div>
+
+      <div v-show="!editing">
+        <div v-html="bodyHtml" ref="bodyHtml"></div>
         <div class="row">
           <div class="col-4">
             <div class="ml-auto">
@@ -52,11 +55,15 @@
 <script>
 import Vote from './Vote'
 import UserInfo from './UserInfo'
+import Editor from './Editor'
 import modification from '../mixins/modification'
 
+import highlight from '../mixins/highlight'
+import autosize from 'autosize'
+
 export default {
-  mixins: [modification],
-  components: { Vote, UserInfo },
+  mixins: [modification, highlight],
+  components: { Vote, UserInfo, Editor },
   props: ['answer'],
   data() {
     return {
@@ -97,6 +104,10 @@ export default {
     endpoint() {
       return `/questions/${this.questionId}/answers/${this.id}`
     },
+
+    uniqueName(){
+      return `answer-${this.id}`
+    }
   },
 }
 </script>

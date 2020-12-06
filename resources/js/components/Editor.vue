@@ -3,18 +3,18 @@
     <div class="card-header">
       <ul class="nav nav-tabs card-header-tabs">
         <li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="#write">Write</a>
+          <a class="nav-link active" data-toggle="tab" :href="tabId('write', '#')">Write</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#preview">Preview</a>
+          <a class="nav-link" data-toggle="tab" :href="tabId('preview', '#')">Preview</a>
         </li>
       </ul>
     </div>
     <div class="card-body tab-content">
-      <div class="tab-pane active" id="write">
+      <div class="tab-pane active" :id="tabId('write')">
         <slot></slot>
       </div>
-      <div class="tab-pane" v-html="preview" id="preview">
+      <div class="tab-pane" v-html="preview" :id="tabId('preview')">
       </div>
     </div>
   </div>
@@ -22,20 +22,30 @@
 
 <script>
 import MarkdownIt from 'markdown-it'
-import higlightjs from 'markdown-it-highlightjs'
-// import prism from 'markdown-it-prism'
-// import 'highlight.js/styles/xcode.css'
+import MDhiglightjs from 'markdown-it-highlightjs'
+import highlight from 'highlight.js'
+
 let markdown = new MarkdownIt()
-markdown.use(higlightjs, { inline: true })
+markdown.use(MDhiglightjs)
 
 export default {
-  props: ['body'],
+  props: ['body', 'name'],
   computed: {
     preview(){
       // return (this.body)
-      return markdown.render(this.body)
+      try{
+        // console.log(highlight.getLanguage())
+        return markdown.render(this.body)
+      } catch(e){
+        console.log(e)
+      }
     }
   },
+  methods: {
+    tabId(tabName, hash = ''){
+      return `${hash}${tabName}-${this.name}`
+    }
+  }
 }
 </script>
 

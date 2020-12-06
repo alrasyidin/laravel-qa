@@ -8,7 +8,7 @@
           </div>
 
           <div class="media">
-            <editor :body="body">
+            <editor :body="body" :name="uniqueName">
               <textarea
                 v-model="body"
                 class="form-control"
@@ -84,12 +84,13 @@ import Vote from './Vote'
 import UserInfo from './UserInfo'
 import Editor from './Editor'
 import modification from '../mixins/modification'
-import autosize from 'autosize'
-import highlight from 'highlight.js'
+import highlight from '../mixins/highlight'
+// import autosize from 'autosize'
+// import highlight from 'highlight.js'
 
 export default {
   props: ['question'],
-  mixins: [modification],
+  mixins: [modification, highlight],
   components: {
     Vote,
     UserInfo,
@@ -140,14 +141,15 @@ export default {
     endpoint() {
       return `/questions/${this.question.id}`
     },
+    uniqueName(){
+      return `answer-${this.id}`
+    }
   },
-  updated() {
-    autosize(this.$refs.textbox)
-    console.log('berhasil')
-    highlight.highlightBlock(this.$refs.bodyHtml)
-  },
-  mounted(){
-    highlight.initHighlighting()
-  }
+  // updated() {
+  //   autosize(this.$refs.textbox)
+  //   console.log('berhasil')
+    
+  //   highlight.highlightBlock(this.$refs.bodyHtml.querySelector('pre code'))
+  // }
 }
 </script>
