@@ -22,23 +22,33 @@
 
 <script>
 import MarkdownIt from 'markdown-it'
-import MDhiglightjs from 'markdown-it-highlightjs'
-import highlight from 'highlight.js'
+// import MDhiglightjs from 'markdown-it-highlightjs'
+import hljs from 'highlight.js'
 
-let markdown = new MarkdownIt()
-markdown.use(MDhiglightjs)
+let markdown = new MarkdownIt({
+  highlight(str, lang){
+    if(lang && hljs.getLanguage(lang)){
+      try {
+        console.log(lang, str)
+        return '<pre class="hljs"><code>' +
+                hljs.highlight(lang, str, true).value;
+                '</code></pre>';
+      } catch (__) {}
+    } else{
+      return ''
+    }
+  }
+})
+
+// markdown.use(MDhiglightjs)
 
 export default {
   props: ['body', 'name'],
   computed: {
     preview(){
       // return (this.body)
-      try{
-        // console.log(highlight.getLanguage())
-        return markdown.render(this.body)
-      } catch(e){
-        console.log(e)
-      }
+      
+      return markdown.render(this.body)
     }
   },
   methods: {
