@@ -49,7 +49,7 @@
               <div v-html="bodyHtml" ref="bodyHtml"></div>
               <div class="row">
                 <div class="col-4">
-                  <div class="ml-auto">
+                  <div class="ml-auto mt-2">
                     <a
                       v-if="this.authorize('modify', question)"
                       @click.prevent="edit"
@@ -143,11 +143,11 @@ export default {
   },
   updated() {
     autosize(this.$refs.textbox)
-
-    // highlight.highlightAuto(this.$refs.bodyHtml)
+    console.log('berhasil')
+    highlight.highlightBlock(this.$refs.bodyHtml)
   },
   mounted(){
-    highlight.initHighlightingOnLoad()
+    highlight.initHighlighting()
   }
 }
 </script>
