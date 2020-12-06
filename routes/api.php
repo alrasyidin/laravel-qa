@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('questions', 'Api\QuestionsController@index');
-
+Route::get('questions/{question}-{slug}', 'Api\QuestionDetailsController');
 
 Route::post('token', 'Auth\LoginController@getToken');
 
