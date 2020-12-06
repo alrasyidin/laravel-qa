@@ -1,6 +1,5 @@
 import highlight from 'highlight.js'
 import autosize from 'autosize'
-import {set} from 'lodash'
 
 export default{
   updated(){
