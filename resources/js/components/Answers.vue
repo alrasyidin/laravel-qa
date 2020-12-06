@@ -78,8 +78,8 @@ export default {
         },
 
         add(event){
-            console.log(event)
             this.answers.push(event)
+            this.count++
         }
     },
 }

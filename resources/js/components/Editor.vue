@@ -24,7 +24,7 @@
 import MarkdownIt from 'markdown-it'
 // import MDhiglightjs from 'markdown-it-highlightjs'
 import hljs from 'highlight.js'
-
+ 
 let markdown = new MarkdownIt({
   highlight(str, lang){
     if(lang && hljs.getLanguage(lang)){

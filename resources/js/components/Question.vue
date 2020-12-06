@@ -2,21 +2,20 @@
   <div class="row justify-content-center">
     <div class="col-md-12">
       <div class="card">
-        <form class="card-body" v-if="editing" @submit.prevent="update">
+        <form class="card-body" v-show="authorize('modify', question) && editing" @submit.prevent="update">
           <div class="card-title">
-            <input
-              type="text"
-              v-model="title"
-              class="form-control form-control-lg"
-            />
+            <input type="text" v-model="title" class="form-control" />
           </div>
 
           <div class="media">
-            <textarea
-              v-model="body"
-              class="form-control form-control-lg"
-              rows="8"
-            ></textarea>
+            <editor :body="body" :name="uniqueName">
+              <textarea
+                v-model="body"
+                class="form-control"
+                rows="8"
+                ref="textbox"
+              ></textarea>
+            </editor>
           </div>
           <div class="form-group mt-4">
             <button
@@ -31,7 +30,7 @@
             </button>
           </div>
         </form>
-        <div class="card-body" v-else>
+        <div class="card-body" v-show="!editing">
           <div class="card-title">
             <div class="d-flex align-items-center">
               <h2 class="m-0 w-75">{{ title }}</h2>
@@ -47,10 +46,10 @@
             <vote name="question" :model="question"></vote>
 
             <div class="media-body">
-              <div v-html="bodyHtml"></div>
+              <div v-html="bodyHtml" ref="bodyHtml"></div>
               <div class="row">
                 <div class="col-4">
-                  <div class="ml-auto">
+                  <div class="ml-auto mt-2">
                     <a
                       v-if="this.authorize('modify', question)"
                       @click.prevent="edit"
@@ -83,14 +82,19 @@
 <script>
 import Vote from './Vote'
 import UserInfo from './UserInfo'
+import Editor from './Editor'
 import modification from '../mixins/modification'
+import highlight from '../mixins/highlight'
+// import autosize from 'autosize'
+// import highlight from 'highlight.js'
 
 export default {
   props: ['question'],
-  mixins: [modification],
+  mixins: [modification, highlight],
   components: {
     Vote,
     UserInfo,
+    Editor,
   },
   data() {
     return {
@@ -137,6 +141,15 @@ export default {
     endpoint() {
       return `/questions/${this.question.id}`
     },
+    uniqueName(){
+      return `answer-${this.id}`
+    }
   },
+  // updated() {
+  //   autosize(this.$refs.textbox)
+  //   console.log('berhasil')
+    
+  //   highlight.highlightBlock(this.$refs.bodyHtml.querySelector('pre code'))
+  // }
 }
 </script>

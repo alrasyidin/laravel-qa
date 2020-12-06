@@ -16,6 +16,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/prismjs-themes/prism.css') }}" rel="stylesheet"> --}}
+    {{-- highlight js --}}
+    <link href="{{ asset('css/higlightjs-styles/default.css') }}" rel="stylesheet">
 </head>
 
 <body>
