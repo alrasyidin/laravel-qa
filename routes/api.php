@@ -22,4 +22,7 @@ Route::middleware('auth:api')->group(function () {
     // favorite question
     Route::post('/questions/{question}/favorite', 'Api\FavoriteController@store')->name('questions.favorite');
     Route::delete('/questions/{question}/favorite', 'Api\FavoriteController@destroy')->name('questions.unfavorite');
+
+    // my posts
+    Route::get('/my-posts', 'Api\MyPostController');
 });
