@@ -6,7 +6,9 @@ Route::get('questions', 'Api\QuestionsController@index');
 Route::get('questions/{question}-{slug}', 'Api\QuestionDetailsController');
 Route::get('questions/{question}/answers', 'Api\AnswersController@index');
 
-Route::post('token', 'Auth\LoginController@getToken');
+Route::post('login', 'Api\Auth\LoginController@store');
+Route::post('register', 'Api\Auth\RegisterController');
+// Route::post('token', 'Auth\LoginController@getToken');
 
 Route::middleware('auth:api')->group(function () {
     Route::apiResource('questions', 'Api\QuestionsController')->except('index');
@@ -25,4 +27,7 @@ Route::middleware('auth:api')->group(function () {
 
     // my posts
     Route::get('/my-posts', 'Api\MyPostController');
+
+    //logout
+    Route::post('logout', 'Api\Auth\LoginController@destroy');
 });
