@@ -17,6 +17,7 @@ class QuestionsResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'excerpt' => $this->excerpt,
             'slug' => $this->id . '-' .$this->slug,
             'is_favorited' => $this->is_favorited,
             'favorites_count' => $this->favorites_count,

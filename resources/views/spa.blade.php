@@ -37,8 +37,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                            <router-link class="nav-item" tag="li" :to="{ name: 'questions'}"> <a class="nav-link">Questions</a></router-link>
-                            <router-link class="nav-item" tag="li" :to="{ name: 'my-posts'}"> <a class="nav-link">My Posts</a></router-link>
+                        <router-link class="nav-item" tag="li" :to="{ name: 'questions'}"> <a
+                                class="nav-link">Questions</a></router-link>
+                        <router-link class="nav-item" tag="li" :to="{ name: 'my-posts'}"> <a class="nav-link">My
+                                Posts</a></router-link>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -87,13 +89,15 @@
 
     <!-- Scripts -->
     <script>
-        window.Auth = {!! 
-            json_encode([
-                'signedIn' => Auth::check(),
-                'user' => Auth::user(),
-                'url' => route('login')
-            ])
-        !!}
+        window.Auth = @json([
+            'signedIn' => Auth::check(),
+            'user' => Auth::user(),
+        ]);
+        
+        window.Urls = @json([
+            'api' => url('/api'),
+            'login' => route('login')
+        ]);
     </script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 </body>

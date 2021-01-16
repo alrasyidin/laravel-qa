@@ -44,7 +44,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
 	if(to.matched.some(item => item.meta.auth) && !window.Auth.signedIn){
-		window.location = window.Auth.url;
+		window.location = window.Urls.login;
 		return;
 	}
 	next();
