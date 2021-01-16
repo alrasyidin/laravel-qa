@@ -25,6 +25,7 @@ class QuestionsResource extends JsonResource
             'votes_count' => $this->votes_count,
             'answers_count' => $this->answers_count,
             'status' => $this->status,
+            'user_id' => $this->user_id,
             'user' => new UsersResource($this->user),
         ];
     }

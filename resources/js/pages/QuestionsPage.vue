@@ -49,7 +49,7 @@ export default {
   methods: {
     fetchQuestions() {
       axios.get('/questions').then(({data}) => {
-		  console.log(data)
+		  // console.log(data)
 		  this.questions = data.data
 	  })
     },

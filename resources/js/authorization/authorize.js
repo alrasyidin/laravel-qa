@@ -6,7 +6,6 @@ export default{
     Vue.prototype.authorize = function(policy, model){
         if(typeof policy == 'string' && typeof model == 'object'){
             const user = window.Auth.user
-    
             return policies[policy](user, model)
         }
     }

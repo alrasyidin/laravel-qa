@@ -10,7 +10,7 @@
         {{ str_plural('answer', question.answers_count) }}
       </div>
       <div class="view">
-        {{ question.views + " " + str_plural('view', question.views) }}
+        {{ question.views + ' ' + str_plural('view', question.views) }}
       </div>
     </div>
     <div class="media-body">
@@ -19,16 +19,14 @@
           <h4>{{ question.title }}</h4>
         </a>
         <div class="ml-auto">
-
-          
           <a
             href="#"
             class="btn btn-sm btn-outline-info"
-			v-if="authorize('modify', question)"
+            v-if="authorize('modify', question)"
             >Edit</a
           >
           <form
-			v-if="authorize('deleteQuestion', question)"
+            v-if="authorize('deleteQuestion', question)"
             action="#"
             method="post"
             class="d-inline-block"
@@ -55,20 +53,17 @@
 
 <script>
 export default {
-	name: "QuestionExcerpt",
-	props: ["question"],
-	methods: {
-		str_plural(str, count){
-			return str + (count > 1) ? 's' : '';
-		}
-	},
-	computed: {
-		statusClass(){
-			return [
-				"status",
-				this.question.status
-			]
-		}
-	}
+  name: 'QuestionExcerpt',
+  props: ['question'],
+  methods: {
+    str_plural(str, count) {
+      return str + (count > 1) ? 's' : ''
+    },
+  },
+  computed: {
+    statusClass() {
+      return ['status', this.question.status]
+    },
+  },
 }
 </script>
