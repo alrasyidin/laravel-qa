@@ -10,20 +10,7 @@
             </div>
           </div>
 
-          <div class="card-body">
-            <div v-if="questions">
-              <question-excerpt
-                v-for="question in questions"
-                :key="question.id"
-                :question="question"
-              ></question-excerpt>
-            </div>
-            <div v-else class="alert alert-warning">
-              <strong>Sorry</strong> There are no questions available.
-            </div>
-
-            <!-- {{ pagination here }} -->
-          </div>
+          <questions :questions="questions"></questions>
         </div>
       </div>
     </div>
@@ -31,7 +18,7 @@
 </template>
 
 <script>
-import QuestionExcerpt from '../components/QuestionExcerpt'
+import Questions from '../components/Questions'
 
 export default {
   name: 'QuestionsPage',
@@ -41,18 +28,7 @@ export default {
     }
   },
   components: {
-    QuestionExcerpt,
-  },
-  created() {
-    this.fetchQuestions()
-  },
-  methods: {
-    fetchQuestions() {
-      axios.get('/questions').then(({data}) => {
-		  // console.log(data)
-		  this.questions = data.data
-	  })
-    },
-  },
+    Questions
+  }
 }
 </script>
