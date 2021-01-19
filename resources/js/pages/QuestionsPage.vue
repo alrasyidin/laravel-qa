@@ -6,7 +6,8 @@
           <div class="card-header">
             <div class="d-flex align-items-center">
               <h3 class="m-0">All Questions</h3>
-              <a href="#" class="btn btn-primary ml-auto">Add Question</a>
+              <router-link :to="{name: 'questions.create'}" class="btn btn-primary ml-auto">Ask Questions</router-link>
+              <!-- <a href="#"  class="btn btn-primary ml-auto">Add Question</a> -->
             </div>
           </div>
 

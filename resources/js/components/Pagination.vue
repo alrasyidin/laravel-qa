@@ -44,6 +44,8 @@ export default {
       this.switchPage()
     },
     switchPage() {
+	  console.log(this.$router)
+	  console.log(this.$route)
       this.$router.push({
         name: 'questions',
         query: {

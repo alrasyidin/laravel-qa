@@ -57,7 +57,9 @@ export default {
   props: ['question'],
   methods: {
     str_plural(str, count) {
-      return str + (count > 1) ? 's' : ''
+      let s = count != 1 || count != 0 ? "s" : "";
+
+      return str + s;
     },
   },
   computed: {
