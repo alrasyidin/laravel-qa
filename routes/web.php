@@ -4,10 +4,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
+
 Route::view('{any}', 'spa')->where('any', '.*');
 
 Route::get('/', "QuestionController@index");
-
 
 Route::get('/home', 'HomeController@index')->name('home');
 

@@ -7,6 +7,7 @@ import QuestionsPage from '../pages/QuestionsPage'
 import QuestionPage from '../pages/QuestionPage'
 import CreateQuestionPage from '../pages/CreateQuestionPage'
 import NotFoundPage from '../pages/NotFoundPage'
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({

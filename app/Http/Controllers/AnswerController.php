@@ -108,4 +108,5 @@ class AnswerController extends Controller
 
         return back()->with('success', 'Your answer has been removed');
     }
+  
 }

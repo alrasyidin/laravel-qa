@@ -48,17 +48,17 @@ export default {
     }
   },
   computed: {
-	  buttonText(){
-		  return "Ask Question"
-	  }
+    buttonText() {
+      return 'Ask Question'
+    },
   },
   methods: {
     handleSubmit() {
-		this.$emit("submitted", {
-			title: this.title,
-			body: this.body
-		});
-	},
+      this.$emit('submitted', {
+        title: this.title,
+        body: this.body,
+      })
+    },
     errorClass(column) {
       return [
         'form-control',
