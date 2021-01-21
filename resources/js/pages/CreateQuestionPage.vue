@@ -20,6 +20,7 @@
 
 <script>
 import QuestionForm from '../components/QuestionForm'
+import EventBus from '../event-bus'
 
 export default {
   name: 'CreateQuestionPage',
@@ -34,10 +35,13 @@ export default {
       axios
         .post('/questions', payload)
         .then(response => {
-          console.log(response)
+          this.$toast.success(response.message, 'Success');
+          this.$router.push({name: 'questions'})
         })
-        .catch(response => {
-          console.log(response)
+        .catch(({response}) => {
+          console.log(response.data.errors);
+          
+          EventBus.$emit("error", response.data.errors);
         })
     },
   },

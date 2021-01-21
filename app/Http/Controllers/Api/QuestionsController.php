@@ -62,8 +62,13 @@ class QuestionsController extends Controller
      * @param  \App\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(AskQuestionRequest $request, Question $question)
+    public function update(Request $request, Question $question)
     {
+        $request->validate([
+            'title' => 'required|max:255',
+            'body' => 'required'
+        ]);
+        
         $this->authorize('update', $question);
 
         $question->update($request->only('title', 'body'));

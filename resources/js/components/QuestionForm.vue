@@ -9,23 +9,25 @@
         :class="errorClass('title')"
       />
 
-      <div v-if="errors['title'][0]" class="invalid-feedback">
-        <strong>{{ errors['title'][0] }}</strong>
+      <div v-if="errors.title" class="invalid-feedback">
+        <strong>{{ errors.title[0] }}</strong>
       </div>
     </div>
 
     <div class="form-group">
       <label for="question-body">Explain your question</label>
-      <textarea
-        name="body"
-        :class="errorClass('body')"
-        v-model="body"
-        rows="10"
-      ></textarea>
+      <editor :body="body" name="question-body">
+        <textarea
+          name="body"
+          :class="errorClass('body')"
+          v-model="body"
+          rows="10"
+        ></textarea>
 
-      <div v-if="errors['body'][0]" class="invalid-feedback">
-        <strong>{{ errors['body'][0] }}</strong>
-      </div>
+        <div v-if="errors.body" class="invalid-feedback">
+          <strong>{{ errors.body[0] }}</strong>
+        </div>
+      </editor>
     </div>
 
     <div class="form-group">
@@ -35,6 +37,9 @@
 </template>
 
 <script>
+import EventBus from '../event-bus'
+import Editor from './Editor'
+
 export default {
   name: 'QuestionForm',
   data() {
@@ -42,17 +47,41 @@ export default {
       title: '',
       body: '',
       errors: {
-        title: '',
-        body: '',
+        title: [],
+        body: [],
       },
+    }
+  },
+  props: {
+    isEdit: {
+      type: Boolean,
+      default: false  
+    }
+  },
+  components: {
+    Editor
+  },
+  mounted() {
+    EventBus.$on('error', errors => (this.errors = errors))
+
+    if (this.isEdit) {
+      this.fetchQuestion();
     }
   },
   computed: {
     buttonText() {
-      return 'Ask Question'
+      return this.isEdit ? 'Edit Question' : 'Ask Question'  
     },
   },
   methods: {
+    fetchQuestion(){
+      axios.get(`questions/${this.$route.params.id}`)
+           .then(({data}) => {
+             this.title = data.title
+             this.body = data.body
+           })
+           .catch(error => console.log(error.response))
+    },
     handleSubmit() {
       this.$emit('submitted', {
         title: this.title,

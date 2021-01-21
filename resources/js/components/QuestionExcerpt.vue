@@ -19,12 +19,12 @@
           <h4>{{ question.title }}</h4>
         </a>
         <div class="ml-auto">
-          <a
-            href="#"
+          <router-link
             class="btn btn-sm btn-outline-info"
             v-if="authorize('modify', question)"
-            >Edit</a
-          >
+            :to="{ name: 'questions.edit', params: { id: question.id } }"
+          >Edit</router-link>
+
           <form
             v-if="authorize('deleteQuestion', question)"
             action="#"
@@ -57,9 +57,9 @@ export default {
   props: ['question'],
   methods: {
     str_plural(str, count) {
-      let s = count != 1 || count != 0 ? "s" : "";
+      let s = count != 1 || count != 0 ? 's' : ''
 
-      return str + s;
+      return str + s
     },
   },
   computed: {

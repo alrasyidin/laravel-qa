@@ -29,7 +29,7 @@ let markdown = new MarkdownIt({
   highlight(str, lang){
     if(lang && hljs.getLanguage(lang)){
       try {
-        console.log(lang, str)
+        // console.log(lang, str)
         return '<pre class="hljs"><code>' +
                 hljs.highlight(lang, str, true).value;
                 '</code></pre>';
