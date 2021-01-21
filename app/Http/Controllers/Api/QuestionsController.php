@@ -32,12 +32,18 @@ class QuestionsController extends Controller
      */
     public function store(AskQuestionRequest $request)
     {
-        $question = $request->user()->questions()->create($request->only('title', 'body'));
-
-        return response()->json([
-            'message' => 'Your questions has been submitted',
-            'question' => new QuestionsResource($question)
-        ]);
+        try {
+            $question = $request->user()->questions()->create($request->only('title', 'body'));
+    
+            return response()->json([
+                'message' => 'Your questions has been submitted',
+                'question' => new QuestionsResource($question)
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'error' =>  $th
+            ]);
+        }
     }
 
     /**

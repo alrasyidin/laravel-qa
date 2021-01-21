@@ -23,22 +23,15 @@
             class="btn btn-sm btn-outline-info"
             v-if="authorize('modify', question)"
             :to="{ name: 'questions.edit', params: { id: question.id } }"
-          >Edit</router-link>
-
-          <form
-            v-if="authorize('deleteQuestion', question)"
-            action="#"
-            method="post"
-            class="d-inline-block"
+            >Edit</router-link
           >
-            <button
-              class="btn btn-sm btn-outline-danger"
-              onclick="return confirm('Are you sure delete this question?');"
-              type="submit"
-            >
-              Delete
-            </button>
-          </form>
+          <button
+            v-if="authorize('deleteQuestion', question)"
+            @click="destroy"
+            class="btn btn-sm btn-outline-danger"
+          >
+            Delete
+          </button>
         </div>
       </div>
       <p class="lead">
@@ -52,14 +45,30 @@
 </template>
 
 <script>
+import destroy from '../mixins/destroy'
+import highlight from '../mixins/highlight'
+
 export default {
   name: 'QuestionExcerpt',
   props: ['question'],
+  mixins: [destroy],
   methods: {
     str_plural(str, count) {
       let s = count != 1 || count != 0 ? 's' : ''
 
       return str + s
+    },
+    delete() {
+      axios
+        .delete(`questions/${this.question.id}`)
+        .then(({ data }) => {
+          this.$toast.success(data.message, 'Success', { timeout: 2000 })
+          this.$emit('deleted')
+        })
+        .catch(({ response }) => {
+          console.log(response.data.message)
+          // this.$toast.error(response.data.message, 'Success', { timeout: 2000 })
+        })
     },
   },
   computed: {

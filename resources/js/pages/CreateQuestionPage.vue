@@ -34,13 +34,14 @@ export default {
     create(payload) {
       axios
         .post('/questions', payload)
-        .then(response => {
-          this.$toast.success(response.message, 'Success');
+        .then(({data}) => {
+          
+          this.$toast.success(data.message, 'Success');
           this.$router.push({name: 'questions'})
         })
         .catch(({response}) => {
-          console.log(response.data.errors);
-          
+          this.$toast.error(response.data.message, 'Error');
+
           EventBus.$emit("error", response.data.errors);
         })
     },
