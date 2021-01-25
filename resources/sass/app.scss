@@ -111,3 +111,13 @@
 [v-cloak]{
     display:none
 }
+
+.fade-enter-active,
+.fade-leave-to{
+    transition: opacity .8s linear;
+}
+
+.fade-enter,
+.fade-leave-to{
+    opacity: 0;
+}

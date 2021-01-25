@@ -82,7 +82,9 @@
 
         <main class="py-4">
             <div class="container">
-                <router-view></router-view>
+                <transition name="fade" mode="out-in">
+                    <router-view></router-view>
+                </transition>
             </div>
         </main>
     </div>
