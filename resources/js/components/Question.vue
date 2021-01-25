@@ -34,9 +34,10 @@
           <div class="card-title">
             <div class="d-flex align-items-center">
               <h2 class="m-0 w-75">{{ title }}</h2>
-              <a href="/questions" class="btn btn-outline-secondary ml-auto"
-                >Back to all Question</a
-              >
+              
+              <router-link exact :to="{name: 'questions'}" class="btn btn-outline-secondary ml-auto">
+                Back to all Question
+              </router-link>
             </div>
           </div>
 
@@ -101,6 +102,7 @@ export default {
       title: this.question.title,
       body: this.question.body,
       bodyHtml: this.question.body_html,
+      id: this.question.id,
       beforeEditCacheState: {},
     }
   },
@@ -119,19 +121,16 @@ export default {
         body: this.body,
       }
     },
-    delete() {
+    delete () {
       axios
         .delete(this.endpoint)
         .then(({ data }) => {
           this.$toast.success(data.message, 'Success', { tiemout: 3000 })
+          this.$router.push({name: 'questions'})
         })
         .catch(({ response }) =>
           this.$toast.error(response.data.message, 'Error')
         )
-
-      setTimeout(() => {
-        window.location.href = '/questions'
-      }, 4000)
     },
   },
   computed: {

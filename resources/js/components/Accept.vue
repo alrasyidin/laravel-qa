@@ -41,6 +41,7 @@ export default {
             return !this.canAccept && this.isBest
         },
         canAccept() {
+            // console.log(this.answer);
             if(!this.isBest){
                 return this.authorize('accept', this.answer)
             }
@@ -48,7 +49,7 @@ export default {
     },
     methods: {
         create() {
-            axios.post(`/answer/${this.id}/accept`).then(res => {
+            axios.post(`/answers/${this.id}/accept`).then(res => {
                 this.$toast.success(res.data.message, 'Success', {
                     timeout: 3000,
                     position: 'bottomLeft',

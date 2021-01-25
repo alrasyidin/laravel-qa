@@ -54,6 +54,8 @@ class QuestionsController extends Controller
      */
     public function show(Question $question)
     {
+        $question->increment('views');
+
         return response()->json([
             'title' => $question->title,
             'body' => $question->body,

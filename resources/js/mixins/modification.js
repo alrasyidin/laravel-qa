@@ -1,7 +1,7 @@
 import destroy from './destroy'
 
 export default {
-    mixins: {destroy},
+    mixins: [destroy],
     data() {
         return {
             editing: false,

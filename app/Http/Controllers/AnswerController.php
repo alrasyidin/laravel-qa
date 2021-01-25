@@ -13,7 +13,15 @@ class AnswerController extends Controller
     }
 
     public function index(Question $question){
-        return $question->answers()->with('user')->simplePaginate(3);       
+        return $question
+                ->answers()
+                ->where(function($q){
+                    if (request()->has('excludes')) {
+                        $q->whereNotIn('id', request()->query('excludes'));
+                    }
+                })
+                ->with('user')
+                ->simplePaginate(3);       
     }
 
     /**

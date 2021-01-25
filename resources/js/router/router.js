@@ -23,7 +23,7 @@ const router = new VueRouter({
 		{
 			path: '/questions',
 			component: QuestionsPage,
-			name: 'questions'
+			name: 'questions',
 		},
 		{
 			path: '/questions/create',
@@ -46,7 +46,8 @@ const router = new VueRouter({
 		{
 			path: '/questions/:slug',
 			component: QuestionPage,
-			name: 'question'
+			name: 'question',
+			props: true
 		},
 		{
 			path: '*',

@@ -15,9 +15,7 @@
     </div>
     <div class="media-body">
       <div class="d-flex align-items-center">
-        <a href="#" class="w-75">
-          <h4>{{ question.title }}</h4>
-        </a>
+        <router-link class="w-75" :to="{name: 'question', params: {slug: question.slug}}"> <h4>{{ question.title }}</h4></router-link>
         <div class="ml-auto">
           <router-link
             class="btn btn-sm btn-outline-info"

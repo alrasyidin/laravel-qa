@@ -10,7 +10,7 @@ class Question extends Model
 {
     protected $guarded = [];
 
-    protected $appends = ['created_date', 'body_html', 'is_favorited', 'favorites_count', 'excerpt'];
+    protected $appends = ['created_date', 'body_html', 'is_favorited', 'favorites_count', 'excerpt', 'url', 'status'];
 
     public function user(){
         return $this->belongsTo(User::class);
@@ -35,14 +35,17 @@ class Question extends Model
     }
 
     public function getStatusAttribute(){
-        if($this->answers_count > 0){
-            return 'answered';
-            if($this->best_answer_id){
-                return 'answer-accepted';
-            }
-        }
+        $status = '';
 
-        return 'unanswered';
+        if($this->answers_count > 0){
+            $status = 'answered';
+            if($this->best_answer_id){
+                $status = 'answer-accepted';
+            }
+        } else {
+            $status = 'unanswered';
+        }
+        return $status;
     }
 
     public function getBodyHtmlAttribute() {
@@ -71,7 +74,7 @@ class Question extends Model
     }
 
     public function isFavorited(){
-        return $this->favorites()->where('user_id', auth()->id())->count() > 0;
+        return $this->favorites()->where('user_id', auth('api')->id())->count() > 0;
     }
 
     public function getIsFavoritedAttribute(){

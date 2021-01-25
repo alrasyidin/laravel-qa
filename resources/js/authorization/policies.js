@@ -8,7 +8,7 @@ export default {
     },
     accept(user, answer) {
         if (!isNull(user)) {
-            return user.id == answer.question.user_id
+            return user.id == answer.question_user_id
         }
     },
 
