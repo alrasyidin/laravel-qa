@@ -1,6 +1,6 @@
 import { library, dom } from  '@fortawesome/fontawesome-svg-core'
-import { faCaretUp, faCaretDown, faStar, faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faCaretUp, faCaretDown, faStar, faCheck, faSun, faCompactDisc} from '@fortawesome/free-solid-svg-icons'
 
-library.add(faCaretUp, faCaretDown, faStar, faCheck)
+library.add(faCaretUp, faCaretDown, faStar, faCheck, faSun, faCompactDisc)
 
 dom.watch()

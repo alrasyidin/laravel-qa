@@ -13,6 +13,7 @@ import VueIziToast from 'vue-izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 import Authorization from './authorization/authorize'
 import router from './router/router'
+import Spinner from './components/Spinner.vue'
 
 Vue.use(VueIziToast)
 Vue.use(Authorization)
@@ -29,7 +30,7 @@ Vue.use(Authorization)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('question-page', require('./pages/QuestionPage.vue').default)
+Vue.component('spinner', Spinner)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -38,6 +39,36 @@ Vue.component('question-page', require('./pages/QuestionPage.vue').default)
  */
 
 const app = new Vue({
-    el: '#app',
-    router
+  el: '#app',
+  router,
+  data: {
+    loading: false,
+  },
+  created() {
+    // Add a request interceptor
+    axios.interceptors.request.use(
+      (config) => {
+        this.loading = true
+        return config
+      },
+      (error) => {
+        this.loading = false
+        // Do something with request error
+        return Promise.reject(error)
+      }
+    )
+
+    // Add a response interceptor
+    axios.interceptors.response.use(
+      (response) => {
+        this.loading = false
+
+        return response
+      },
+      (error) => {
+        this.loading = false
+        return Promise.reject(error)
+      }
+    )
+  },
 })
